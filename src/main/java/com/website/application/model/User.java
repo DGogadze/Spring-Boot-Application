@@ -7,7 +7,7 @@ import javax.persistence.Id;
 
 @Entity
 public class User {
-    public User(String userName, String userPassword, String userEmail) {
+    public User(String userEmail, String userName, String userPassword) {
         setUserName(userName);
         setUserPassword(userPassword);
         setUserEmail(userEmail);

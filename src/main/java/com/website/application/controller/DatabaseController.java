@@ -13,16 +13,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class DatabaseController {
     @Autowired
     UserRepository userRepository;
-    @GetMapping("/getdata")
-    public String getData(Model model){
-        Iterable<User> users = userRepository.findAll();
-        model.addAttribute("users",users);
-        return "home";
-    }
     @PostMapping("/signup")
     public String signUp(@RequestParam String userEmail,@RequestParam String userName,@RequestParam String userPassword, Model model){
         User user = new User(userEmail,userName,userPassword);
         userRepository.save(user);
         return "home";
+    }
+    @GetMapping("/signin")
+    public String signIn(Model model){
+        return "signin";
     }
 }

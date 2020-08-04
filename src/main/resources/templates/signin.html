@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Website : Sign In</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="styles/registrationForm.css">
+</head>
+<body>
+<header th:insert="blocks/header :: header"></header>
+<form action="/signin" method="get" style="border:1px solid #ccc">
+    <div class="container">
+        <h1>Sign In</h1>
+        <p>Enter you'r username & password to sign in.</p>
+        <hr>
+
+        <label><b>User Name</b></label>
+        <input type="text" placeholder="Enter User Name" name="userName" required>
+
+        <label><b> Password</b></label>
+        <input type="password" placeholder="Enter Password" name="userPassword" required>
+
+        <label>
+            <input type="checkbox" checked="checked" name="remember" style="margin-bottom:15px"> Remember me
+        </label>
+
+        <div class="clearfix">
+            <button type="button" class="cancelbtn">Cancel</button>
+            <button type="submit" class="signupbtn">Sign In</button>
+        </div>
+    </div>
+</form>
+<footer th:insert="blocks/footer :: footer"></footer>
+</body>
+</html>
