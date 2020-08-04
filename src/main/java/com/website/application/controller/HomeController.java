@@ -9,8 +9,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class HomeController {
-    @Autowired
-    private UserRepository userRepository;
     @GetMapping("/")
     public String home(Model model){
         return "home";
@@ -31,10 +29,12 @@ public class HomeController {
     public String support(Model model){
         return "support";
     }
-    @GetMapping("/getdata")
-    public String getData(Model model){
-        Iterable<User> users = userRepository.findAll();
-        model.addAttribute("users",users);
+    @GetMapping("/signup")
+    public String signUp(Model model){
+        return "signup";
+    }
+    @GetMapping("/error")
+    public String error(Model model){
         return "home";
     }
 }
