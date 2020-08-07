@@ -1,8 +1,5 @@
 package com.website.application.controller;
 
-import com.website.application.model.User;
-import com.website.application.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -33,8 +30,16 @@ public class HomeController {
     public String signUp(Model model){
         return "signup";
     }
-    @GetMapping("/error")
-    public String error(Model model){
-        return "home";
+    @GetMapping("/signin")
+    public String signIn(Model model){
+        return "signin";
+    }
+    @GetMapping("/profile")
+    public String profile(Model model){
+        return "profile";
+    }
+    @GetMapping("/failedtosignin")
+    public String failedToSignIn(Model model){
+        return "failedtosignin";
     }
 }

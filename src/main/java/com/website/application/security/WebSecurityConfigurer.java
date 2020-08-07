@@ -9,24 +9,29 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfigurer extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http
-                .authorizeRequests()
-                    .antMatchers("/","/home","/signup").permitAll()
+        http.csrf().requireCsrfProtectionMatcher(new AntPathRequestMatcher("**/signin"))
+                .and()
+                    .authorizeRequests()
+                    .antMatchers("/").permitAll()
+                    .antMatchers("/home").permitAll()
+                    .antMatchers("/signin").permitAll()
+                    .antMatchers("/signup").permitAll()
+                    .antMatchers("/profile").permitAll()
                     .anyRequest().authenticated()
-                    .and()
+                .and()
                 .formLogin()
                     .loginPage("/signin")
-                    .permitAll()
-                    .and()
-                .logout()
+                    .failureUrl("/failedtosignin")
                     .permitAll();
     }
+
     @Bean
 
     @Override

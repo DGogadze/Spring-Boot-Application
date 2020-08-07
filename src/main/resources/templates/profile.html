@@ -2,13 +2,14 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <title>Website : Sign In</title>
+    <title>Website : Profile</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
-    <link rel="stylesheet" href="styles/registrationForm.css">
 </head>
 <body>
 <header th:insert="blocks/header :: header"></header>
-You are signed in as <span th:text="${message}"></span>
+<p th:text="userID"></p><br>
+<p th:text="userName"></p><br>
+<p th:text="userEmail"></p>
 <footer th:insert="blocks/footer :: footer"></footer>
 </body>
 </html>
