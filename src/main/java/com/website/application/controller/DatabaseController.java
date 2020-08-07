@@ -25,7 +25,7 @@ public class DatabaseController {
     @PostMapping("/signin")
     public String signIn(@RequestParam String userName,@RequestParam String userPassword,Model model){
         User user = userRepository.findByUserName(userName);
-        if (bCryptPasswordEncoder.encode(userPassword).equals(user.getUserPassword())){
+        if (bCryptPasswordEncoder.matches(userPassword,user.getUserPassword())){
             model.addAttribute("userName",user.getUserName());
             model.addAttribute("userEmail",user.getUserEmail());
             model.addAttribute("userID",user.getUserID());
