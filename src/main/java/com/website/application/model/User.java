@@ -53,4 +53,14 @@ public class User {
     public String getUserEmail() {
         return userEmail;
     }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "userID=" + userID +
+                ", userName='" + userName + '\'' +
+                ", userPassword='" + userPassword + '\'' +
+                ", userEmail='" + userEmail + '\'' +
+                '}';
+    }
 }

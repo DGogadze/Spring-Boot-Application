@@ -19,17 +19,8 @@ public class WebSecurityConfigurer extends WebSecurityConfigurerAdapter {
         http.csrf().requireCsrfProtectionMatcher(new AntPathRequestMatcher("**/signin"))
                 .and()
                     .authorizeRequests()
-                    .antMatchers("/").permitAll()
-                    .antMatchers("/home").permitAll()
-                    .antMatchers("/signin").permitAll()
-                    .antMatchers("/signup").permitAll()
-                    .antMatchers("/profile").permitAll()
-                    .anyRequest().authenticated()
-                .and()
-                .formLogin()
-                    .loginPage("/signin")
-                    .failureUrl("/failedtosignin")
-                    .permitAll();
+                    .antMatchers("/**").permitAll()
+                    .anyRequest().authenticated();
     }
 
     @Bean
