@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Website : Failed to sign in</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+</head>
+<span>
+<header th:insert="blocks/header :: header"></header>
+<span style="color: brown">Account with this </span>
+<!--/*@thymesVar id="userName" type="com.website.application.controller.DatabaseController"*/-->
+<span style="color: deeppink" th:text="${userName}"></span> <span style="color: brown"> username or </span>
+    <!--/*@thymesVar id="userEmail" type="com.website.application.controller.DatabaseController"*/-->
+<span style="color: deeppink" th:text="${userEmail}"></span></span> <span style="color: brown"> email exists.</span>
+<footer th:insert="blocks/footer :: footer"></footer>
+</body>
+</html>

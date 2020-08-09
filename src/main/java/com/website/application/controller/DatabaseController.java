@@ -21,12 +21,18 @@ public class DatabaseController {
 
     @PostMapping("/signup")
     public String signUp(@RequestParam String userEmail,@RequestParam String userName,@RequestParam String userPassword, Model model){
-        User user = new User(userEmail,userName,userPassword);
-        user.setUserPassword(bCryptPasswordEncoder.encode(userPassword));
-        userRepository.save(user);
-        String message = "Dear " + userName + ", you'r account was successfully created.\n Service of Web-site.";
-        mailSender.sendMail(userEmail,"Web-site account registration",message);
-        return "signin";
+        if (userRepository.findByUserName(userName)==null&&userRepository.findByUserEmail(userEmail)==null) {
+            User user = new User(userEmail, userName, userPassword);
+            user.setUserPassword(bCryptPasswordEncoder.encode(userPassword));
+            userRepository.save(user);
+            String message = "Dear " + userName + ", you'r account was successfully created.\n Service of Web-site.";
+            mailSender.sendMail(userEmail, "Web-site account registration", message);
+            return "signin";
+        } else {
+            model.addAttribute("userName",userName);
+            model.addAttribute("userEmail",userEmail);
+            return "accountExists";
+        }
     }
     @PostMapping("/signin")
     public String signIn(@RequestParam String userName,@RequestParam String userPassword,Model model){
