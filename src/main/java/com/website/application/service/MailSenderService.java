@@ -8,7 +8,7 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
 @Service
-public class MailSender{
+public class MailSenderService {
     @Qualifier("getMailSender")
     @Autowired
     private JavaMailSender javaMailSender;

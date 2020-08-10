@@ -2,7 +2,8 @@ package com.website.application.controller;
 
 import com.website.application.model.User;
 import com.website.application.repository.UserRepository;
-import com.website.application.service.MailSender;
+import com.website.application.service.MailSenderService;
+import com.website.application.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -17,17 +18,15 @@ public class DatabaseController {
     @Autowired
     UserRepository userRepository;
     @Autowired
-    MailSender mailSender;
+    MailSenderService mailSender;
+    @Autowired
+    UserService userService;
 
     @PostMapping("/signup")
     public String signUp(@RequestParam String userEmail,@RequestParam String userName,@RequestParam String userPassword, Model model){
         if (userRepository.findByUserName(userName)==null&&userRepository.findByUserEmail(userEmail)==null) {
-            User user = new User(userEmail, userName, userPassword);
-            user.setUserPassword(bCryptPasswordEncoder.encode(userPassword));
-            userRepository.save(user);
-            String message = "Dear " + userName + ", you'r account was successfully created.\n Service of Web-site.";
-            mailSender.sendMail(userEmail, "Web-site account registration", message);
-            return "signin";
+            userService.saveUser(userEmail,userName,userPassword);
+            return "redirect:/signin";
         } else {
             model.addAttribute("userName",userName);
             model.addAttribute("userEmail",userEmail);
