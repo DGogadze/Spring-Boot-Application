@@ -25,7 +25,7 @@ public class UserService {
         this.userName=userName;
         this.userPassword=passwordEncodingService.encode(userPassword);
 
-        User user = new User(userEmail, userName, userPassword);
+        User user = new User(this.userEmail, this.userName, this.userPassword);
 
         userRepository.save(user);
         String message = "Dear " + userName + ", you'r account was successfully created.\n Service of Web-site.";
