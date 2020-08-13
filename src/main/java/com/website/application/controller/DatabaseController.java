@@ -36,11 +36,11 @@ public class DatabaseController {
     @PostMapping("/signin")
     public String signIn(@RequestParam String userName,@RequestParam String userPassword,Model model){
         User user = userRepository.findByUserName(userName);
-        if (bCryptPasswordEncoder.matches(userPassword,user.getUserPassword())){
-            model.addAttribute("userName",user.getUserName());
-            model.addAttribute("userEmail",user.getUserEmail());
-            model.addAttribute("userID",user.getUserID());
-        }
-        return "profile";
+        if (userService.userValidation(userName,userPassword)){
+            model.addAttribute("userID", user.getUserID());
+            model.addAttribute("userName", userName);
+            model.addAttribute("userEmail", user.getUserEmail());
+            return "profile";
+        } else return "failedtosignin";
     }
 }

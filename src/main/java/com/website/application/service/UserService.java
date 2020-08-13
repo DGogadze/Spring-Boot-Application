@@ -3,6 +3,7 @@ package com.website.application.service;
 import com.website.application.model.User;
 import com.website.application.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -13,6 +14,8 @@ public class UserService {
     MailSenderService mailSender;
     @Autowired
     PasswordEncodingService passwordEncodingService;
+
+    BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
 
     private String userEmail,userName,userPassword;
 
@@ -30,5 +33,9 @@ public class UserService {
         userRepository.save(user);
         String message = "Dear " + userName + ", you'r account was successfully created.\n Service of Web-site.";
         mailSender.sendMail(userEmail, "Web-site account registration", message);;
+    }
+    public boolean userValidation(String userName,String userPassword){
+        User user = userRepository.findByUserName(userName);
+        return bCryptPasswordEncoder.matches(userPassword,user.getUserPassword());
     }
 }
