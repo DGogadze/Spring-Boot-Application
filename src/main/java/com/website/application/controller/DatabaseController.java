@@ -1,6 +1,8 @@
 package com.website.application.controller;
 
+import com.website.application.model.Post;
 import com.website.application.model.User;
+import com.website.application.repository.PostsRepository;
 import com.website.application.repository.UserRepository;
 import com.website.application.service.MailSenderService;
 import com.website.application.service.UserService;
@@ -8,8 +10,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 
 
 @Controller
@@ -21,6 +28,8 @@ public class DatabaseController {
     MailSenderService mailSender;
     @Autowired
     UserService userService;
+    @Autowired
+    PostsRepository postsRepository;
 
     @PostMapping("/signup")
     public String signUp(@RequestParam String userEmail,@RequestParam String userName,@RequestParam String userPassword, Model model){
@@ -42,5 +51,26 @@ public class DatabaseController {
             model.addAttribute("userEmail", user.getUserEmail());
             return "profile";
         } else return "failedtosignin";
+    }
+    @PostMapping("/addpost")
+    public String addPost(@RequestParam String userName,
+                          @RequestParam String userPassword,
+                          @RequestParam String text,
+                          @RequestParam String title, Model model){
+        if (userService.userValidation(userName,userPassword)){
+            Calendar calendar = new GregorianCalendar();
+            Date date = calendar.getTime();
+            java.sql.Date sqlDate = new java.sql.Date(date.getTime());
+
+            Post post = new Post(text,userName,title,sqlDate);
+            postsRepository.save(post);
+        }
+        return "redirect:/viewposts";
+    }
+    @GetMapping("/viewposts")
+    public String viewPosts(Model model) {
+        Iterable<Post> posts = postsRepository.findAll();
+        model.addAttribute("posts",posts);
+        return "viewposts";
     }
 }

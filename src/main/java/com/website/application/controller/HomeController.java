@@ -16,17 +16,9 @@ public class HomeController {
     public String home(Model model){
         return "home";
     }
-    @GetMapping("/aboutus")
-    public String aboutUs(Model model){
-        return "aboutus";
-    }
-    @GetMapping("/enterprise")
-    public String enterprise(Model model){
-        return "enterprise";
-    }
-    @GetMapping("/prising")
-    public String prising(Model model){
-        return "prising";
+    @GetMapping("/addpost")
+    public String addPost(Model model){
+        return "addpost";
     }
     @GetMapping("/support")
     public String support(Model model){
