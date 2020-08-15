@@ -20,9 +20,9 @@ public class HomeController {
     public String addPost(Model model){
         return "addpost";
     }
-    @GetMapping("/support")
-    public String support(Model model){
-        return "support";
+    @GetMapping("/aboutus")
+    public String aboutus(Model model){
+        return "aboutus";
     }
     @GetMapping("/signup")
     public String signUp(Model model){
