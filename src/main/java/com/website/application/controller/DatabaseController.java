@@ -67,10 +67,4 @@ public class DatabaseController {
         }
         return "redirect:/viewposts";
     }
-    @GetMapping("/viewposts")
-    public String viewPosts(Model model) {
-        Iterable<Post> posts = postsRepository.findAll();
-        model.addAttribute("posts",posts);
-        return "viewposts";
-    }
 }
