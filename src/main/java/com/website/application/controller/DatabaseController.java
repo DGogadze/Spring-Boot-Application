@@ -43,29 +43,39 @@ public class DatabaseController {
         }
     }
     @PostMapping("/signin")
-    public String signIn(@RequestParam String userName,@RequestParam String userPassword,Model model){
-        User user = userRepository.findByUserName(userName);
-        if (userService.userValidation(userName,userPassword)){
-            model.addAttribute("userID", user.getUserID());
-            model.addAttribute("userName", userName);
-            model.addAttribute("userEmail", user.getUserEmail());
-            model.addAttribute("userRegistrationDate",user.getUserRegistrationDate());
-            return "profile";
-        } else return "failedtosignin";
+    public String signIn(@RequestParam String userName,@RequestParam String userPassword,Model model) {
+        try {
+            User user = userRepository.findByUserName(userName);
+
+            if (userService.userValidation(userName, userPassword)) {
+                model.addAttribute("userID", user.getUserID());
+                model.addAttribute("userName", userName);
+                model.addAttribute("userEmail", user.getUserEmail());
+                model.addAttribute("userRegistrationDate", user.getUserRegistrationDate());
+                return "profile";
+            }
+        } catch (NullPointerException e) {
+            return "failedtosignin";
+        }
+        return "failedtosignin";
     }
     @PostMapping("/addpost")
     public String addPost(@RequestParam String userName,
                           @RequestParam String userPassword,
                           @RequestParam String text,
                           @RequestParam String title, Model model){
-        if (userService.userValidation(userName,userPassword)){
-            Calendar calendar = new GregorianCalendar();
-            Date date = calendar.getTime();
-            java.sql.Date sqlDate = new java.sql.Date(date.getTime());
+        try {
+            if (userService.userValidation(userName,userPassword)){
+                Calendar calendar = new GregorianCalendar();
+                Date date = calendar.getTime();
+                java.sql.Date sqlDate = new java.sql.Date(date.getTime());
 
-            Post post = new Post(text,userName,title,sqlDate);
-            postsRepository.save(post);
+                Post post = new Post(text,userName,title,sqlDate);
+                postsRepository.save(post);
+            }
+        } catch (NullPointerException e){
+            return "redirect:/failedtosignin";
         }
-        return "redirect:/viewposts";
+        return "redirect:/home";
     }
 }
