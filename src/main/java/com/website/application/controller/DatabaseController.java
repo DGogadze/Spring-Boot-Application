@@ -49,6 +49,7 @@ public class DatabaseController {
             model.addAttribute("userID", user.getUserID());
             model.addAttribute("userName", userName);
             model.addAttribute("userEmail", user.getUserEmail());
+            model.addAttribute("userRegistrationDate",user.getUserRegistrationDate());
             return "profile";
         } else return "failedtosignin";
     }

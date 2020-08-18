@@ -11,10 +11,10 @@
         <h1>All posts</h1>
         <div th:each="el : ${posts}" class="alert alert-info mt-2">
             <h3 style="color: #ff428a" th:text="${el.getSenderUserName()}"></h3>
-            <h4 th:text="${el.getTitle()}"></h4>
+            <h4 style="text-align: center" th:text="${el.getTitle()}"></h4>
             <p th:text="${el.getText()}"></p>
             <br>
-            <h5 th:text="${el.getDate()}"></h5>
+            <h5 style="text-align: right" th:text="${el.getDate()}"></h5>
         </div>
     </div>
     <footer th:insert="blocks/footer :: footer"></footer>

@@ -6,6 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
+
 @Service
 public class UserService {
     @Autowired
@@ -19,6 +23,10 @@ public class UserService {
 
     private String userEmail,userName,userPassword;
 
+    private Calendar calendar = new GregorianCalendar();
+    private Date utilDate = new Date();
+    private java.sql.Date userRegistrationDate = new java.sql.Date(utilDate.getTime());
+
     public UserService(){
 
     }
@@ -28,7 +36,7 @@ public class UserService {
         this.userName=userName;
         this.userPassword=passwordEncodingService.encode(userPassword);
 
-        User user = new User(this.userEmail, this.userName, this.userPassword);
+        User user = new User(this.userEmail, this.userName, this.userPassword,this.userRegistrationDate);
 
         userRepository.save(user);
         String message = "Dear " + userName + ", you'r account was successfully created.\n Service of Web-site.";

@@ -7,9 +7,10 @@
 </head>
 <body>
 <header th:insert="blocks/header :: header"></header>
-User ID = <span th:text="${userID}"></span><br>
-User name = <span th:text="${userName}"></span><br>
-User email = <span th:text="${userEmail}"></span>
+<span style="margin-left: 30px"></span> User ID = <span th:text="${userID}"></span><br>
+<span style="margin-left: 30px"></span> User name = <span th:text="${userName}"></span><br>
+<span style="margin-left: 30px"></span> User email = <span th:text="${userEmail}"></span><br>
+<span style="margin-left: 30px"></span> Registration date = <span th:text="${userRegistrationDate}"></span><br>
 <footer th:insert="blocks/footer :: footer"></footer>
 </body>
 </html>

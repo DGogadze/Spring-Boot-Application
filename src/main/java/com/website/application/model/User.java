@@ -1,13 +1,15 @@
 package com.website.application.model;
 
 import javax.persistence.*;
+import java.sql.Date;
 
 @Entity
 public class User {
-    public User(String userEmail, String userName, String userPassword) {
+    public User(String userEmail, String userName, String userPassword, Date userRegistrationDate) {
         setUserName(userName);
         setUserPassword(userPassword);
         setUserEmail(userEmail);
+        setUserRegistrationDate(userRegistrationDate);
     }
     public User(){
 
@@ -21,6 +23,16 @@ public class User {
     private String userPassword;
 
     private String userEmail;
+
+    private Date userRegistrationDate;
+
+    public Date getUserRegistrationDate() {
+        return userRegistrationDate;
+    }
+
+    public void setUserRegistrationDate(Date userRegistrationDate) {
+        this.userRegistrationDate = userRegistrationDate;
+    }
 
     public void setUserID(Long userID) {
         this.userID = userID;
