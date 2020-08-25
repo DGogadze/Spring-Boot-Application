@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Website : User Activation</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+</head>
+<body>
+<header th:insert="blocks/header :: header"></header>
+<form method="post" action="/userActivation">
+    <div class="container">
+        <h1>Account activation!</h1>
+        <p>Fill fields to activate account, activation code will sent to your email address.</p>
+        <hr>
+        <label><b>User Name</b></label>
+        <input type="text" placeholder="Enter User Name" name="userName" required>
+
+        <label><b>Activation code</b></label>
+        <input type="text" placeholder="Activation code" name="activationCode" required> <br>
+        <button type="submit">Submit</button>
+        <button type="button">Cancel</button>
+    </div>
+</form>
+<footer th:insert="blocks/footer :: footer"></footer>
+</body>
+</html>

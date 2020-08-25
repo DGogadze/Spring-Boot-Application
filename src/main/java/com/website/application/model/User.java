@@ -26,6 +26,22 @@ public class User {
 
     private Date userRegistrationDate;
 
+    private final int userActivationCode = ((int)((Math.random()*10000)));
+
+    private boolean activated = false;
+
+    public int getUserActivationCode() {
+        return userActivationCode;
+    }
+
+    public boolean isActivated() {
+        return activated;
+    }
+
+    public void setActivated(boolean activated) {
+        this.activated = activated;
+    }
+
     public Date getUserRegistrationDate() {
         return userRegistrationDate;
     }

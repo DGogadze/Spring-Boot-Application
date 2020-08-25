@@ -35,7 +35,7 @@ public class DatabaseController {
     public String signUp(@RequestParam String userEmail,@RequestParam String userName,@RequestParam String userPassword, Model model){
         if (userRepository.findByUserName(userName)==null&&userRepository.findByUserEmail(userEmail)==null) {
             userService.saveUser(userEmail,userName,userPassword);
-            return "redirect:/signin";
+            return "redirect:/userActivation";
         } else {
             model.addAttribute("userName",userName);
             model.addAttribute("userEmail",userEmail);
@@ -52,6 +52,7 @@ public class DatabaseController {
                 model.addAttribute("userName", userName);
                 model.addAttribute("userEmail", user.getUserEmail());
                 model.addAttribute("userRegistrationDate", user.getUserRegistrationDate());
+                model.addAttribute("title","Website : " + userName);
                 return "profile";
             }
         } catch (NullPointerException e) {
@@ -77,5 +78,12 @@ public class DatabaseController {
             return "redirect:/failedtosignin";
         }
         return "redirect:/home";
+    }
+    @PostMapping("userActivation")
+    public String userActivation(@RequestParam String userName,@RequestParam int activationCode){
+        if (userService.userActivation(activationCode, userName)) {
+            userRepository.findByUserName(userName).setActivated(true);
+            return "redirect:/accountActivated";
+        } else return "redirect:/userActivationFailed";
     }
 }

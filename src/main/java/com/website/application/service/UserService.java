@@ -39,11 +39,18 @@ public class UserService {
         User user = new User(this.userEmail, this.userName, this.userPassword,this.userRegistrationDate);
 
         userRepository.save(user);
-        String message = "Dear " + userName + ", you'r account was successfully created.\n Service of Web-site.";
-        mailSender.sendMail(userEmail, "Web-site account registration", message);;
+        String message = "Dear " + userName + ", you'r account was successfully created but needs activation," +
+                " please redirect to link to activate your account http://localhost:8080/userActivation" +
+                "\n Here is your activation code -> " + userRepository.findByUserName(userName).getUserActivationCode() +
+                "\t\n Thank you for using our service" +
+                "\t\n Service of Web-site.";
+        mailSender.sendMail(userEmail, "Web-site account activation", message);;
     }
     public boolean userValidation(String userName,String userPassword){
         User user = userRepository.findByUserName(userName);
         return bCryptPasswordEncoder.matches(userPassword,user.getUserPassword());
+    }
+    public boolean userActivation(int activationCode,String userName){
+        return userRepository.findByUserName(userName).getUserActivationCode() == activationCode;
     }
 }

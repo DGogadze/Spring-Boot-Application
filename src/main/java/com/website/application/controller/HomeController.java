@@ -8,6 +8,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 public class HomeController {
@@ -52,5 +53,9 @@ public class HomeController {
     @GetMapping("/failedtosignin")
     public String failedToSignIn(Model model){
         return "failedtosignin";
+    }
+    @GetMapping("/userActivation")
+    public String userActivation(Model model) {
+        return "userActivation";
     }
 }
