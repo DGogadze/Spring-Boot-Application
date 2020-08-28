@@ -3,6 +3,8 @@ package com.website.application.service;
 import com.website.application.model.User;
 import com.website.application.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -40,7 +42,7 @@ public class UserService {
 
         userRepository.save(user);
         String message = "Dear " + userName + ", you'r account was successfully created but needs activation," +
-                " please redirect to link to activate your account http://localhost:8080/userActivation" +
+                " please redirect to link to activate your account http://localhost:8080/useractivation" +
                 "\n Here is your activation code -> " + userRepository.findByUserName(userName).getUserActivationCode() +
                 "\t\n Thank you for using our service" +
                 "\t\n Service of Web-site.";
@@ -52,5 +54,10 @@ public class UserService {
     }
     public boolean userActivation(int activationCode,String userName){
         return userRepository.findByUserName(userName).getUserActivationCode() == activationCode;
+    }
+    public void updateUserActivation(String userName,boolean activationValue){
+        User user = userRepository.findByUserName(userName);
+        user.setActivated(activationValue);
+        userRepository.save(user);
     }
 }

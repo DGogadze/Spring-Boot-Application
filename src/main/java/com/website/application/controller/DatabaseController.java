@@ -82,7 +82,7 @@ public class DatabaseController {
     @PostMapping("/useractivation")
     public String userActivation(@RequestParam String userName,@RequestParam int activationCode){
         if (userService.userActivation(activationCode, userName)) {
-            userRepository.findByUserName(userName).setActivated(true);
+            userService.updateUserActivation(userName,true);
             return "redirect:/accountactivated";
         } else return "redirect:/useractivationfailed";
     }

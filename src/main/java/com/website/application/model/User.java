@@ -1,5 +1,8 @@
 package com.website.application.model;
 
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
+
 import javax.persistence.*;
 import java.sql.Date;
 
@@ -89,6 +92,9 @@ public class User {
                 ", userName='" + userName + '\'' +
                 ", userPassword='" + userPassword + '\'' +
                 ", userEmail='" + userEmail + '\'' +
+                ", userRegistrationDate=" + userRegistrationDate +
+                ", userActivationCode=" + userActivationCode +
+                ", activated=" + activated +
                 '}';
     }
 }
