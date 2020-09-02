@@ -47,6 +47,10 @@ public class DatabaseController {
         try {
             User user = userRepository.findByUserName(userName);
 
+            if (!user.isActivated()){
+                return "redirect:/useractivation";
+            }
+
             if (userService.userValidation(userName, userPassword)) {
                 model.addAttribute("userID", user.getUserID());
                 model.addAttribute("userName", userName);
