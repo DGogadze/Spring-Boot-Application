@@ -13,9 +13,9 @@ public class UserActivationController {
     @Autowired
     UserService userService;
 
-    @GetMapping("/accountactivated")
-    public String accountActivated(Model model){
-        return "accountactivated";
+    @GetMapping("/useractivation")
+    public String userActivation(Model model){
+        return "useractivation";
     }
 
     @PostMapping("/useractivation")
