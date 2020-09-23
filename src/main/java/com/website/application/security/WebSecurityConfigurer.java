@@ -15,11 +15,16 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 public class WebSecurityConfigurer extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.csrf().requireCsrfProtectionMatcher(new AntPathRequestMatcher("**/signin"))
-                .and()
-                    .authorizeRequests()
-                    .antMatchers("/**").permitAll()
-                    .anyRequest().authenticated();
+        http
+                .authorizeRequests()
+                    .antMatchers("/","/home","/signin","/useractivation","/accountactivated","/useractivationfailed")
+                    .permitAll().anyRequest().authenticated()
+                    .and()
+                .formLogin()
+                    .loginPage("/signin").permitAll()
+                    .and()
+                .logout()
+                    .permitAll();
     }
 
     @Override
