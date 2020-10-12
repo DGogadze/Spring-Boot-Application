@@ -12,12 +12,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class SignInController {
-    @Autowired
-    UserRepository userRepository;
-
-    @Autowired
-    UserService userService;
-
 
     @GetMapping("/signin")
     public String signIn(Model model){
@@ -26,24 +20,6 @@ public class SignInController {
 
     @PostMapping("/signin")
     public String signIn(@RequestParam String userName, @RequestParam String userPassword, Model model) {
-        try {
-            User user = userRepository.findByUserName(userName);
-
-            if (!user.isActivated()){
-                return "redirect:/useractivation";
-            }
-
-            if (userService.userValidation(userName, userPassword)) {
-                model.addAttribute("userID", user.getUserID());
-                model.addAttribute("userName", userName);
-                model.addAttribute("userEmail", user.getUserEmail());
-                model.addAttribute("userRegistrationDate", user.getUserRegistrationDate());
-                model.addAttribute("title","Website : " + userName);
-                return "profile";
-            }
-        } catch (NullPointerException e) {
-            return "failedtosignin";
-        }
-        return "failedtosignin";
+        return "signin";
     }
 }
